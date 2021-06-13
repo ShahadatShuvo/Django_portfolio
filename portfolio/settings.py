@@ -1,10 +1,12 @@
 # from decouple import config
-import dj_database_url
 
 import os
+import dj_database_url
+import django_heroku
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+# BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 # Quick-start development settings - unsuitable for production
@@ -19,7 +21,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
-CORS_ORIGIN_ALLOW_ALL = True # If this is used then `CORS_ORIGIN_WHITELIST` will not have any effect
+CORS_ORIGIN_ALLOW_ALL = True  # If this is used then `CORS_ORIGIN_WHITELIST` will not have any effect
 CORS_ALLOW_CREDENTIALS = True
 
 LOGIN_URL = '/dashboard/login/'
@@ -48,6 +50,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -74,7 +77,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
-            'libraries':{
+            'libraries': {
                 # make your file entry here.
                 'filter_tags': 'info.templatetags.filter',
             }
@@ -84,33 +87,35 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'portfolio.wsgi.application'
 
-
 # if not DEBUG:
-    # Database
-    # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
-    # DATABASES = {
-    #     'default': dj_database_url.config(
-    #         #default=config('DATABASE_URL')
-    #         default = ''
-    #     )
-    # }
-    
-    # Storage settings
-    # CLOUDINARY_STORAGE = {
-    #     'CLOUD_NAME': config('CLOUD_NAME', default=''),
-    #     'API_KEY': config('API_KEY', default=''),
-    #     'API_SECRET': config('API_SECRET', default=''),
-    # }
-    # DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+# Database
+# https://docs.djangoproject.com/en/2.2/ref/settings/#databases
+# DATABASES = {
+#     'default': dj_database_url.config(
+#         #default=config('DATABASE_URL')
+#         default = ''
+#     )
+# }
+
+# Storage settings
+# CLOUDINARY_STORAGE = {
+#     'CLOUD_NAME': config('CLOUD_NAME', default=''),
+#     'API_KEY': config('API_KEY', default=''),
+#     'API_SECRET': config('API_SECRET', default=''),
+# }
+# DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 # else:
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#     }
+# }
 DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-        }
-    }
+    'default': dj_database_url.config()
 
+}
 # Email settings
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST = "smtp.gmail.com"
@@ -118,8 +123,6 @@ EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 # EMAIL_HOST_USER = config('EMAIL_HOST_USER', default='')
 # EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD', default='')
-
-
 
 
 # Password validation
@@ -140,7 +143,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
 
@@ -154,11 +156,10 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
@@ -168,3 +169,6 @@ STATICFILES_DIRS = (
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+#  Add configuration for static files storage using whitenoise
+STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
+django_heroku.settings(locals())
