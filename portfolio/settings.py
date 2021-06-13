@@ -174,7 +174,7 @@ CLOUDINARY_STORAGE = {
     'API_KEY': '949712926752686',
     'API_SECRET': 'TQzLGfFUY9n7JAiBZOoY2ZgI2aU'
 }
-# DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 #  Add configuration for static files storage using whitenoise
 
 STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
