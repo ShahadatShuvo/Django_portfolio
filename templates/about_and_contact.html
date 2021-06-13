@@ -1,6 +1,10 @@
+{% load static %}
 <div class="row mt-lg-6 justify-content-center">
     <div class="col-lg-6 mx-lg-0 mx-2 about mirror-face">
-        <div class="text-white p-2">
+        <div class="text-white p-2 mt-2">
+            <div class="card" style="width: 7rem;">
+                <img class="card-img-top" src="{% static 'img/me.jpg' %}" alt="Card image cap">
+            </div>
             <div id="about-me">
                 <h2 class="display-4">About Me</h2>
                 <p class="">{{info.about}}</p>
@@ -9,7 +13,7 @@
                 <h2 class="display-4">Contact Me</h2>
                 <p class="mb-0 text-muted">
                     <i class="fas fa-phone"></i>
-                    <span class="ml-2">{{info.phone}}<span>
+                    <span class="ml-2">{{info.phone}}</span>
                 </p>
                 <p class="mb-0 text-muted">
                     <i class="fa fa-envelope"></i>
@@ -47,25 +51,30 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
-                        <input name="name" id="form-name" type="text" placeholder="Your Name" class="form-control input" autocomplete="off"/>
+                        <input name="name" id="form-name" type="text" placeholder="Your Name" class="form-control input"
+                               autocomplete="off"/>
                         <div id="name-error"></div>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                        <input name="email" id="form-email" type="email" class="form-control input" placeholder="Your E-Mail" autocomplete="off">
+                        <input name="email" id="form-email" type="email" class="form-control input"
+                               placeholder="Your E-Mail" autocomplete="off">
                         <div id="email-error"></div>
                     </div>
                 </div>
             </div>
             <div class="form-group">
-                <textarea name="message" id="form-message" class="form-control input" rows="7" placeholder="Your Message here ..." autocomplete="off"></textarea>
+                <textarea name="message" id="form-message" class="form-control input" rows="7"
+                          placeholder="Your Message here ..." autocomplete="off"></textarea>
                 <div id="message-error"></div>
             </div>
 
             <div class="form-group" id="recaptcha" style="display:none">
-                <div class="g-recaptcha" data-sitekey="{{recaptcha_key}}" data-callback="RecaptchaCallback" data-expired-callback="expiredRecaptchaCallback"></div>
-                <input id="recaptcha-input" class="form-control d-none" data-recaptcha="true" required data-error="Please complete the Captcha">
+                <div class="g-recaptcha" data-sitekey="{{recaptcha_key}}" data-callback="RecaptchaCallback"
+                     data-expired-callback="expiredRecaptchaCallback"></div>
+                <input id="recaptcha-input" class="form-control d-none" data-recaptcha="true" required
+                       data-error="Please complete the Captcha">
                 <div id="recaptcha-error"></div>
             </div>
 
@@ -77,15 +86,18 @@
         </form>
 
         <!-- Small modal -->
-        <button style="display:none;" type="button" id="modal-toggle" data-toggle="modal" data-target=".bd-example-modal-sm">Small modal</button>
+        <button style="display:none;" type="button" id="modal-toggle" data-toggle="modal"
+                data-target=".bd-example-modal-sm">Small modal
+        </button>
 
-        <div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-sm pt-8">
-            <div class="modal-content text-success p-3 text-center send-success">
-                <i class="fa fa-check-circle fa-3x"></i>
-                <p class="">Your message has sent successfully.</p>
+        <div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog modal-sm pt-8">
+                <div class="modal-content text-success p-3 text-center send-success">
+                    <i class="fa fa-check-circle fa-3x"></i>
+                    <p class="">Your message has sent successfully.</p>
+                </div>
             </div>
-        </div>
         </div>
     </div>
 </div>
